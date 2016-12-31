@@ -13,107 +13,54 @@
 import sequelize = require('sequelize');
 import types = require('./sequelize-types'); // important so we can use same fully qualified names in all generated files
 
-export type RoleId = number;
-export type UserId = number;
-
 
 var asserters:{[typeName:string]:(pojo:any, allowUndefined?:boolean) => void} = {};
 
 //////////////////////////////////////////////////////////////////////////////
 //
 //
-//               Roles
+//               Campuses
 //
 //
 //////////////////////////////////////////////////////////////////////////////
 
 
-export interface RolesPojo
+export interface CampusesPojo
 {
-    RoleID:RoleId;
-    RoleName:string;
+    id?:number;
+    name?:string;
+    location_id?:number;
 }
 
-export interface RolesInstance extends sequelize.Instance<RolesPojo>, RolesPojo { }
+export interface CampusesInstance extends sequelize.Instance<CampusesPojo>, CampusesPojo { }
 
-export interface RolesModel extends sequelize.Model<RolesInstance, RolesPojo> { }
+export interface CampusesModel extends sequelize.Model<CampusesInstance, CampusesPojo> { }
 
-export function AssertValidRoles(pojo:RolesPojo, allowUndefined?:boolean):void {
+export function AssertValidCampuses(pojo:CampusesPojo, allowUndefined?:boolean):void {
 
     if (pojo === undefined || pojo === null) {
         if (allowUndefined) {
             return;
         }
-        throw new Error('Invalid Role provided. It is \'' + (typeof pojo) + '\'.');
+        throw new Error('Invalid Campus provided. It is \'' + (typeof pojo) + '\'.');
     }
     var fieldNames:string[] = Object.keys(pojo);
     if (fieldNames.length === 0) {
-        throw new Error('Invalid Role provided. It is an empty object.');
+        throw new Error('Invalid Campus provided. It is an empty object.');
     }
 
     var i:number = fieldNames.length;
     while(i-- > 0) {
         switch(fieldNames[i]) {
-            case 'RoleID': assertValidFieldType('Role', 'RoleID', pojo, 'number'); break;
-            case 'RoleName': assertValidFieldType('Role', 'RoleName', pojo, 'string'); break;
+            case 'id': assertValidFieldType('Campus', 'id', pojo, 'number'); break;
+            case 'name': assertValidFieldType('Campus', 'name', pojo, 'string'); break;
+            case 'location_id': assertValidFieldType('Campus', 'location_id', pojo, 'number'); break;
             default:
-                throw new Error('Invalid Role provided. Field \'' + fieldNames[i] + '\' is not supported.')
+                throw new Error('Invalid Campus provided. Field \'' + fieldNames[i] + '\' is not supported.')
         }
     }
 }
-asserters['Role'] = AssertValidRoles;
-
-
-
-
-
-//////////////////////////////////////////////////////////////////////////////
-//
-//
-//               Users
-//
-//
-//////////////////////////////////////////////////////////////////////////////
-
-
-export interface UsersPojo
-{
-    UserID:UserId;
-    RoleID:RoleId;
-    UserName:string;
-    role?:RolesPojo;
-}
-
-export interface UsersInstance extends sequelize.Instance<UsersPojo>, UsersPojo { }
-
-export interface UsersModel extends sequelize.Model<UsersInstance, UsersPojo> { }
-
-export function AssertValidUsers(pojo:UsersPojo, allowUndefined?:boolean):void {
-
-    if (pojo === undefined || pojo === null) {
-        if (allowUndefined) {
-            return;
-        }
-        throw new Error('Invalid User provided. It is \'' + (typeof pojo) + '\'.');
-    }
-    var fieldNames:string[] = Object.keys(pojo);
-    if (fieldNames.length === 0) {
-        throw new Error('Invalid User provided. It is an empty object.');
-    }
-
-    var i:number = fieldNames.length;
-    while(i-- > 0) {
-        switch(fieldNames[i]) {
-            case 'UserID': assertValidFieldType('User', 'UserID', pojo, 'number'); break;
-            case 'RoleID': assertValidFieldType('User', 'RoleID', pojo, 'number'); break;
-            case 'UserName': assertValidFieldType('User', 'UserName', pojo, 'string'); break;
-            case 'role': assertValidFieldType('User', 'role', pojo, 'RolesPojo'); break;
-            default:
-                throw new Error('Invalid User provided. Field \'' + fieldNames[i] + '\' is not supported.')
-        }
-    }
-}
-asserters['User'] = AssertValidUsers;
+asserters['Campus'] = AssertValidCampuses;
 
 
 

@@ -4,7 +4,7 @@ module.exports = {
     directory: path.join(__dirname, 'models'),
     username: "root",
     password: 'admin',
-    database: 'sequelizets',
+    database: 'test',
     host: '127.0.0.1',
     pool: { maxConnections: 5, maxIdleTime: 30000 },
     rand: function () {
@@ -14,7 +14,7 @@ module.exports = {
     mysql: {
         username: "root",
         password: 'admin',
-        database: 'sequelizets',
+        database: 'test',
         host: '127.0.0.1',
         port: 3306,
         pool: { maxConnections: 5, maxIdleTime: 30 }

@@ -6,58 +6,33 @@ function initialize(database, username, password, options) {
         return;
     }
     exports.SEQUELIZE = new Sequelize(database, username, password, options);
-    exports.RolesModel = exports.SEQUELIZE.define('Role', {
-        'RoleID': { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
-        'RoleName': { type: Sequelize.STRING, allowNull: false }
+    exports.CampusesModel = exports.SEQUELIZE.define('Campus', {
+        'id': { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
+        'name': { type: Sequelize.STRING },
+        'location_id': { type: Sequelize.INTEGER }
     }, {
         classMethods: {
-            GetRoles: function (role) {
+            GetCampuses: function (campus) {
                 var where = {};
-                var id = parseInt(role);
+                var id = parseInt(campus);
                 if (isNaN(id)) {
-                    if (role['RoleID'] !== undefined) {
-                        where['RoleID'] = role['RoleID'];
+                    if (campus['id'] !== undefined) {
+                        where['id'] = campus['id'];
                     }
-                    if (role['RoleName'] !== undefined) {
-                        where['RoleName'] = role['RoleName'];
+                    if (campus['name'] !== undefined) {
+                        where['name'] = campus['name'];
+                    }
+                    if (campus['location_id'] !== undefined) {
+                        where['location_id'] = campus['location_id'];
                     }
                 }
                 else {
-                    where['RoleID'] = id;
+                    where['!!cannotFindIdFieldOnCampuses!!'] = id;
                 }
-                return exports.RolesModel.find({ where: where });
+                return exports.CampusesModel.find({ where: where });
             }
         }
     });
-    exports.UsersModel = exports.SEQUELIZE.define('User', {
-        'UserID': { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
-        'RoleID': { type: Sequelize.INTEGER, allowNull: false },
-        'UserName': { type: Sequelize.STRING, allowNull: false }
-    }, {
-        classMethods: {
-            GetUsers: function (user) {
-                var where = {};
-                var id = parseInt(user);
-                if (isNaN(id)) {
-                    if (user['UserID'] !== undefined) {
-                        where['UserID'] = user['UserID'];
-                    }
-                    if (user['RoleID'] !== undefined) {
-                        where['RoleID'] = user['RoleID'];
-                    }
-                    if (user['UserName'] !== undefined) {
-                        where['UserName'] = user['UserName'];
-                    }
-                }
-                else {
-                    where['UserID'] = id;
-                }
-                return exports.UsersModel.find({ where: where });
-            }
-        }
-    });
-    exports.RolesModel.hasMany(exports.UsersModel, { foreignKey: 'RoleID' });
-    exports.UsersModel.belongsTo(exports.RolesModel, { as: undefined, foreignKey: 'RoleID' });
     return exports;
 }
 exports.initialize = initialize;

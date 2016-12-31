@@ -17,5 +17,9 @@ node lib/cli.js mydb root admin app/gen mysql     -- to generate sequelize model
 
 
 npm start -- to build and run the app. 
-look at the console for POC Test
+
+TO CHECK if everything is running correctly ... 
+TEST #1 - look at the console for POC Test
+TEST #2  http://localhost:3000/campus/4
+
 

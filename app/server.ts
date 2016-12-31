@@ -17,32 +17,31 @@ models.initialize(config.mysql.database, config.mysql.username, config.mysql.pas
 
 //TEST POC begins -----------------------------
 
-console.log('TEST POC begins --> atempting to find all...');
+console.log('TEST POC begins --> atempting to find all... \n \n');
 
-let findall = models.UsersModel.findAll();
+let findall = models.CampusesModel.findAll();
 
 findall
     .catch((error : any) => {
         throw error;
     })
     .done((users : any) => {
-        console.log('Returned ' + users.length + ' users.');
-
-        users.forEach((user : types.UsersPojo) => {
-            console.log(user.UserName + ' (' + user.UserID + ')');
+        console.log('Returned ' + users.length + ' campuses.');
+        users.forEach((campus : types.CampusesPojo) => {
+            console.log(campus.id + ' ( ' + campus.name + ' - ' + campus.location_id+ ' )');
         });
         console.log('\n\n TEST POC ends');
     });
     
 //TEST POC ends ------------------------------
 
-app.get('/users', function(req, res){
-    models.UsersModel.findAll().then(result => res.json(result) );
+app.get('/campuses', function(req, res){
+    models.CampusesModel.findAll().then(result => res.json(result) );
 });
 
-app.get('/user/:id', function(req, res){
+app.get('/campus/:id', function(req, res){
     var id = req.params.id;
-    models.UsersModel.findById(id).then(result => res.json(result));
+    models.CampusesModel.findById(id).then(result => res.json(result));
 })
 
 app.listen(3000);

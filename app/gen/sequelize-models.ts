@@ -18,8 +18,7 @@ var Sequelize:sequelize.SequelizeStatic = require('sequelize');
 export var initialized:boolean = false;
 export var SEQUELIZE:sequelize.Sequelize;
 
-export var RolesModel:types.RolesModel;
-export var UsersModel:types.UsersModel;
+export var CampusesModel:types.CampusesModel;
 
 
 export function initialize(database:string, username:string, password:string, options:sequelize.Options):any
@@ -31,51 +30,27 @@ export function initialize(database:string, username:string, password:string, op
 
     SEQUELIZE = new Sequelize(database, username, password, options);
 
-    RolesModel = <types.RolesModel> SEQUELIZE.define<types.RolesInstance, types.RolesPojo>('Role', {
-        'RoleID': {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
-        'RoleName': {type: Sequelize.STRING, allowNull: false}
+    CampusesModel = <types.CampusesModel> SEQUELIZE.define<types.CampusesInstance, types.CampusesPojo>('Campus', {
+        'id': {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
+        'name': {type: Sequelize.STRING},
+        'location_id': {type: Sequelize.INTEGER}
         },
         {
             classMethods: {
-                GetRoles:(role:any) => {
+                GetCampuses:(campus:any) => {
                     var where:{[key:string]:any} = {};
-                    var id:number = parseInt(role);
+                    var id:number = parseInt(campus);
                     if (isNaN(id)) {
-                        if (role['RoleID'] !== undefined) { where['RoleID'] = role['RoleID']}
-                        if (role['RoleName'] !== undefined) { where['RoleName'] = role['RoleName']}
+                        if (campus['id'] !== undefined) { where['id'] = campus['id']}
+                        if (campus['name'] !== undefined) { where['name'] = campus['name']}
+                        if (campus['location_id'] !== undefined) { where['location_id'] = campus['location_id']}
                     } else {
-                        where['RoleID'] = id;
+                        where['!!cannotFindIdFieldOnCampuses!!'] = id;
                     }
-                    return RolesModel.find({where: where});
+                    return CampusesModel.find({where: where});
                 }
             }
         });
-    
-    UsersModel = <types.UsersModel> SEQUELIZE.define<types.UsersInstance, types.UsersPojo>('User', {
-        'UserID': {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
-        'RoleID': {type: Sequelize.INTEGER, allowNull: false},
-        'UserName': {type: Sequelize.STRING, allowNull: false}
-        },
-        {
-            classMethods: {
-                GetUsers:(user:any) => {
-                    var where:{[key:string]:any} = {};
-                    var id:number = parseInt(user);
-                    if (isNaN(id)) {
-                        if (user['UserID'] !== undefined) { where['UserID'] = user['UserID']}
-                        if (user['RoleID'] !== undefined) { where['RoleID'] = user['RoleID']}
-                        if (user['UserName'] !== undefined) { where['UserName'] = user['UserName']}
-                    } else {
-                        where['UserID'] = id;
-                    }
-                    return UsersModel.find({where: where});
-                }
-            }
-        });
-    
-    RolesModel.hasMany(UsersModel, {foreignKey: 'RoleID' });
-    UsersModel.belongsTo(RolesModel, {as: undefined, foreignKey: 'RoleID' });
-
     
     return exports;
 }

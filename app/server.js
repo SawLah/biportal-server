@@ -14,25 +14,25 @@ models.initialize(config.mysql.database, config.mysql.username, config.mysql.pas
     },
     host: config.mysql.host
 });
-console.log('TEST POC begins --> atempting to find all...');
-var findall = models.UsersModel.findAll();
+console.log('TEST POC begins --> atempting to find all... \n \n');
+var findall = models.CampusesModel.findAll();
 findall
     .catch(function (error) {
     throw error;
 })
     .done(function (users) {
-    console.log('Returned ' + users.length + ' users.');
-    users.forEach(function (user) {
-        console.log(user.UserName + ' (' + user.UserID + ')');
+    console.log('Returned ' + users.length + ' campuses.');
+    users.forEach(function (campus) {
+        console.log(campus.id + ' ( ' + campus.name + ' - ' + campus.location_id + ' )');
     });
     console.log('\n\n TEST POC ends');
 });
-app.get('/users', function (req, res) {
-    models.UsersModel.findAll().then(function (result) { return res.json(result); });
+app.get('/campuses', function (req, res) {
+    models.CampusesModel.findAll().then(function (result) { return res.json(result); });
 });
-app.get('/user/:id', function (req, res) {
+app.get('/campus/:id', function (req, res) {
     var id = req.params.id;
-    models.UsersModel.findById(id).then(function (result) { return res.json(result); });
+    models.CampusesModel.findById(id).then(function (result) { return res.json(result); });
 });
 app.listen(3000);
 //# sourceMappingURL=server.js.map

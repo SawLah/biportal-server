@@ -1,0 +1,29 @@
+-- seed data for initial set up
+
+-- sql to CREATE DB AND TABLE
+
+CREATE DATABASE `biportal` /*!40100 DEFAULT CHARACTER SET big5 */;
+
+CREATE TABLE `campuses` (
+  `id` int(11) NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `location_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=big5;
+ 
+ 
+ --=======================
+-- json to import data for campus
+
+[{"id":1, "name":"UC Davis", "location_id":1001},
+ {"id":2, "name":"UC Merced", "location_id":1002},
+ {"id":3, "name":"UC Berkeley", "location_id":1003},
+ {"id":4, "name":"UC San Francisco", "location_id":1004},
+ {"id":5, "name":"UC Los Angeles", "location_id":1005},
+ {"id":6, "name":"UC Santa Barbara", "location_id":1006},
+ {"id":7, "name":"UC Riverside", "location_id":1007},
+ {"id":8, "name":"UC San Diego", "location_id":1008},
+ {"id":9, "name":"UC Irvine", "location_id":1009},
+ {"id":10, "name":"UC Santa Cruz", "location_id":1010},
+ {"id":33, "name":"Test Campus 2", "location_id":10002},
+ {"id":34, "name":"OP Office ", "location_id":1144}]

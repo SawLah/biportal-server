@@ -16,38 +16,27 @@ export interface SequelizeNames {
     TableNames: TableNames;
     calculatedFields:CalculatedFields;
     references:References;
-    roleFields:RolesFields;
-    userFields:UsersFields;
+    campusFields:CampusesFields;
 }
 
 export class TableNames {
-    Roles:string = 'Roles';
-    Users:string = 'Users';
+    Campuses:string = 'Campuses';
 }
 export var tableNames:TableNames = new TableNames();
 
-export class RolesFields {
-    RoleID:string = 'RoleID';
-    RoleName:string = 'RoleName';
+export class CampusesFields {
+    id:string = 'id';
+    name:string = 'name';
+    location_id:string = 'location_id';
 }
-export var rolesFields:RolesFields = new RolesFields();
-
-
-export class UsersFields {
-    UserID:string = 'UserID';
-    RoleID:string = 'RoleID';
-    UserName:string = 'UserName';
-    role:string = 'role';
-}
-export var usersFields:UsersFields = new UsersFields();
+export var campusesFields:CampusesFields = new CampusesFields();
 
 
 export class CalculatedFields {}
 export var calculatedFields:CalculatedFields = new CalculatedFields();
 
 export class References {
-    RoleID:types.Reference = { tableName: 'Roles', primaryKey: 'roleId', foreignKey: 'RoleID', as: undefined};
-    UserID:types.Reference = { tableName: 'Users', primaryKey: 'UserID', foreignKey: 'UserID', as: undefined};
+    id:types.Reference = { tableName: 'Campuses', primaryKey: 'id', foreignKey: 'id', as: undefined};
 }
 
 export var references:References = new References();
