@@ -14,7 +14,9 @@ models.initialize(config.mysql.database, config.mysql.username, config.mysql.pas
     },
     host: config.mysql.host
 });
-console.log('TEST POC begins --> atempting to find all... \n \n');
+
+console.log('TEST POC begins ---> atempting to find all... \n \n');
+
 var findall = models.CampusesModel.findAll();
 findall
     .catch(function (error) {

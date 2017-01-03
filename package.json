@@ -21,7 +21,7 @@
   "scripts": {
     "builddist": "rimraf dist/ && tsc --project tsconfig.dist.json",
     "build": "tsc",
-    "start": "npm run build && node app/server.js"
+    "start": "npm run build && nodemon app/server.js"
   },
   "dependencies": {
     "change-case": "^2.3.0",
